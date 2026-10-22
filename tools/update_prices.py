@@ -142,7 +142,11 @@ def fetch_series(yf, symbols, start):
                          threads=True, progress=False)
         for sym in chunk:
             try:
-                sub = df[sym] if len(chunk) > 1 else df
+                # group_by="ticker" gives (symbol, field) columns -- recent yfinance does so even for one symbol.
+                multi = getattr(df.columns, "nlevels", 1) > 1
+                if multi and sym not in df.columns.get_level_values(0):
+                    raise KeyError(sym)
+                sub = df[sym] if multi else df
                 rows = [(ix.date().isoformat(), float(c), float(a))
                         for ix, c, a in zip(sub.index, sub["Close"], sub["Adj Close"])
                         if c == c and a == a]
@@ -168,14 +172,12 @@ def fetch_meta(yf, sym):
 
 
 def fetch_fx(yf, currencies):
-    fx = {}
+    """USD per unit of each currency, from Yahoo's <CUR>USD=X pairs."""
     need = sorted({c for c in currencies if c and c != "USD"})
-    for c in need:
-        s = fetch_series(yf, [f"{c}USD=X"], (dt.date.today() - dt.timedelta(days=10)).isoformat())
-        ser = s.get(f"{c}USD=X")
-        if ser:
-            fx[c] = ser.c[-1]
-    return fx
+    if not need:
+        return {}
+    got = fetch_series(yf, [f"{c}USD=X" for c in need], (dt.date.today() - dt.timedelta(days=10)).isoformat())
+    return {c: got[f"{c}USD=X"].c[-1] for c in need if f"{c}USD=X" in got}
 
 
 def main():
@@ -231,6 +233,7 @@ def main():
         json.dump(doc, fh, ensure_ascii=False, separators=(",", ":"))
         fh.write("\n")
     os.replace(tmp, OUT)
+    print(f"fx: {', '.join(f'{k}={v:.4g}' for k, v in sorted(fx.items()))}")
     print(f"priced {len(out_ideas)}/{len(ideas)} ideas as of {doc['asof']}; {len(missing)} symbols with no data: "
           f"{', '.join(missing[:30])}")
 

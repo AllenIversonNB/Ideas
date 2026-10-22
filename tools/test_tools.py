@@ -218,6 +218,19 @@ class FrameTest(unittest.TestCase):
         one = P.fetch_series(FakeYF, ["ZZZ"], "2026-01-01")
         self.assertEqual(one["ZZZ"].c, [5.0])
 
+        # Recent yfinance returns (symbol, field) columns even for a single symbol.
+        multi1 = pd.DataFrame([[5.0, 4.5]], index=pd.to_datetime(["2026-01-02"]),
+                              columns=pd.MultiIndex.from_product([["EURUSD=X"], ["Close", "Adj Close"]]))
+
+        class FakeYF2:
+            @staticmethod
+            def download(chunk, **kw):
+                return multi1
+
+        got = P.fetch_series(FakeYF2, ["EURUSD=X"], "2026-01-01")
+        self.assertEqual(got["EURUSD=X"].c, [5.0])
+        self.assertEqual(P.fetch_series(FakeYF2, ["OTHER"], "2026-01-01"), {})
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=1)
