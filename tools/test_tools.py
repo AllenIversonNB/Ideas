@@ -46,6 +46,10 @@ class MergeTest(unittest.TestCase):
         self.assertEqual(i["pitch"], "a much longer pitch text here")
         self.assertEqual(i["src"], "a | s1 | 2026-10-21 || b | s2 | 2026-10-22")
         self.assertEqual(self.store["events"][0]["src"], "a | s1 | 2026-10-21 || b | s2 | 2026-10-22")
+        self.add([EV], [idea(pr="Zack Jersky", fm="Some Capital")])
+        self.assertEqual((self.store["ideas"][0]["pr"], self.store["ideas"][0]["fm"]), ("Zack Jersky", "Some Capital"))
+        self.add([EV], [idea(pr="Undisclosed")])
+        self.assertEqual(self.store["ideas"][0]["pr"], "Zack Jersky")
 
     def test_correction_flips_direction_and_keeps_alias(self):
         self.add([EV], [idea(tk="EBAY", yf="EBAY", co="eBay", dir="Long")])

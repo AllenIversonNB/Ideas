@@ -40,6 +40,8 @@ IDEA_FIELDS = ["id", "aka", "ev", "d", "tk", "yf", "co", "dir", "tag", "pr", "fm
                "mcap_ref", "cat", "pitch", "ext", "src", "flag", "seen", "upd"]
 # Text fields where the longer value wins on a plain merge.
 LONGER_WINS = {"pitch", "th", "notes", "summary", "presenters", "cat", "pt"}
+# Stand-ins for "not attributed"; a named presenter from a later source replaces them.
+PLACEHOLDERS = {"Undisclosed", "Participant"}
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 # Series that hold one idea per "event" because the source never said where the idea was pitched.
 # A copy filed there yields to the same pitch filed under a named event of the same host (see fold_catchall).
@@ -86,7 +88,7 @@ def merge_fields(cur, inc, fields, correct=False):
         old = cur.get(f)
         if f == "src":
             new = union_src(old, v)
-        elif correct or old in (None, "", []):
+        elif correct or old in (None, "", []) or (old in PLACEHOLDERS and v not in PLACEHOLDERS):
             new = v
         elif f in LONGER_WINS and isinstance(v, str) and len(v) > len(str(old)):
             new = v
