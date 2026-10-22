@@ -54,8 +54,10 @@ FH→.HE JP/JT→.T HK→.HK CN/CT→.TO AU→.AX TT→.TW IN/IS→.NS. US class
 
 event id = `d-hostslug(14)-nameslug(48)`; idea id = `<event id>--<tickerslug>-<l|s>`.
 An incoming idea matches by `ext`, then id/aka, then (event, ticker, direction). An `ext` match with an earlier
-date moves the idea to that earlier date/event (first time pitched wins). Events left with no ideas and no
-notes are dropped.
+date moves the idea to that earlier date/event (first time pitched wins); if that move lands on an existing
+idea, the two fold (retired id and ext go to `aka`). A copy in a catch-all series (`CATCHALL_SERIES`, today
+"DeMatteo Investor Idea") folds into the same host's pitch of the same ticker and direction within 3 days under
+a named event. Events left with no ideas and no notes are dropped. The store covers pitches from 2026-01-01 on.
 
 ## Performance conventions (tools/update_prices.py, shown in the page footer)
 

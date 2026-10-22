@@ -41,6 +41,10 @@ IDEA_FIELDS = ["id", "aka", "ev", "d", "tk", "yf", "co", "dir", "tag", "pr", "fm
 # Text fields where the longer value wins on a plain merge.
 LONGER_WINS = {"pitch", "th", "notes", "summary", "presenters", "cat", "pt"}
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+# Series that hold one idea per "event" because the source never said where the idea was pitched.
+# A copy filed there yields to the same pitch filed under a named event of the same host (see fold_catchall).
+CATCHALL_SERIES = {"DeMatteo Investor Idea"}
+FOLD_DAYS = 3
 
 
 def slug(s, n=None):
@@ -146,7 +150,7 @@ def clean(rec, fields):
 
 
 def merge(store, inc, now):
-    stats = {"ev_new": 0, "ev_upd": 0, "new": 0, "upd": 0, "corrected": 0}
+    stats = {"ev_new": 0, "ev_upd": 0, "new": 0, "upd": 0, "corrected": 0, "folded": 0}
     events = {e["id"]: e for e in store["events"]}
     ev_alias = {}
     for e in store["events"]:
@@ -184,6 +188,7 @@ def merge(store, inc, now):
     by_id = {i["id"]: i for i in ideas}
     by_ext = {i["ext"]: i for i in ideas if i.get("ext")}
     alias = {a: i for i in ideas for a in i.get("aka", [])}
+    by_ext.update({a: i for a, i in alias.items() if a not in by_ext})  # a folded record keeps its other ext ids in `aka`
 
     def natural(ev, tk, d=None):
         return [i for i in ideas if i["ev"] == ev and norm_tk(i["tk"]) == tk and (d is None or i["dir"] == d)]
@@ -210,6 +215,8 @@ def merge(store, inc, now):
         cur = None
         if i.get("ext") and i["ext"] in by_ext:
             cur = by_ext[i["ext"]]
+            if cur not in ideas:  # stale entry for a record folded earlier in this run
+                cur = None
         if cur is None:
             cur = by_id.get(nid) or alias.get(nid)
         if cur is None:
@@ -241,6 +248,17 @@ def merge(store, inc, now):
             cur["dir"] = i["dir"]
             changed = True
         new_id = idea_id(cur)
+        if new_id != cur["id"] and by_id.get(new_id) not in (None, cur):
+            # Moving this idea landed it on one that already exists (e.g. two DeMatteo tokens for the same
+            # pitch). Fold it in: the survivor keeps the fuller fields, and the retired id and ext go to `aka`.
+            keep = by_id[new_id]
+            fold_into(keep, cur, now)
+            for a in keep["aka"]:
+                alias[a] = by_ext[a] = keep
+            ideas.remove(cur)
+            by_id.pop(cur["id"], None)
+            stats["folded"] += 1
+            continue
         if new_id != cur["id"]:
             cur.setdefault("aka", [])
             if cur["id"] not in cur["aka"]:
@@ -252,6 +270,8 @@ def merge(store, inc, now):
             cur["upd"] = now
             stats["corrected" if correct else "upd"] += 1
 
+    stats["folded"] += fold_catchall(ideas, events, now)
+
     # A re-listed idea (e.g. DeMatteo's daily list) folds into its first event, and an idea that moves to an
     # earlier date leaves its old event behind. Drop events left with no ideas -- unless they carry notes.
     used = {i["ev"] for i in ideas}
@@ -262,6 +282,43 @@ def merge(store, inc, now):
     store["events"] = sorted(events.values(), key=lambda e: (e["d"], e["id"]), reverse=True)
     store["ideas"] = sorted(ideas, key=lambda i: (i["d"], i["ev"], i["tk"]), reverse=True)
     return stats
+
+
+def fold_into(keep, gone, now):
+    merge_fields(keep, gone, IDEA_FIELDS)
+    keep.setdefault("aka", [])
+    for a in [gone["id"], gone.get("ext")] + gone.get("aka", []):
+        if a and a not in keep["aka"] and a != keep.get("ext"):
+            keep["aka"].append(a)
+    keep["upd"] = now
+
+
+def fold_catchall(ideas, events, now):
+    """Same host, ticker and direction within FOLD_DAYS, where at least one copy sits in a catch-all series:
+    one pitch, reported twice. The copy under a named event survives; between two catch-all copies the earlier
+    one does. Returns the number of records folded away."""
+    def catchall(i):
+        return events[i["ev"]].get("series") in CATCHALL_SERIES
+
+    folded = 0
+    groups = {}
+    for i in ideas:
+        groups.setdefault((events[i["ev"]].get("host"), i["tk"], i["dir"]), []).append(i)
+    for grp in groups.values():
+        if len(grp) < 2 or not any(catchall(i) for i in grp):
+            continue
+        grp.sort(key=lambda i: (catchall(i), i["d"]))  # named events first, then earliest
+        alive = []
+        for i in grp:
+            day = dt.date.fromisoformat(i["d"])
+            keep = next((k for k in alive if abs((dt.date.fromisoformat(k["d"]) - day).days) <= FOLD_DAYS), None)
+            if keep is not None and catchall(i):
+                fold_into(keep, i, now)
+                ideas.remove(i)
+                folded += 1
+            else:
+                alive.append(i)
+    return folded
 
 
 def possible_dups(store):
@@ -329,13 +386,14 @@ def main():
             for e in errs[:40]:
                 print("  " + e, file=sys.stderr)
             sys.exit(2)
-        if len(store["ideas"]) < before:
+        if len(store["ideas"]) < before - total.get("folded", 0):
             print(f"REFUSING TO WRITE: idea count would drop {before} -> {len(store['ideas'])}", file=sys.stderr)
             sys.exit(2)
         if store != snapshot:
             write_all(store, now)
         print(f"events +{total.get('ev_new', 0)} new, {total.get('ev_upd', 0)} updated | "
-              f"ideas +{total.get('new', 0)} new, {total.get('upd', 0)} updated, {total.get('corrected', 0)} corrected | "
+              f"ideas +{total.get('new', 0)} new, {total.get('upd', 0)} updated, {total.get('corrected', 0)} corrected, "
+              f"{total.get('folded', 0)} folded | "
               f"store: {len(store['events'])} events, {len(store['ideas'])} ideas")
     elif args.build:
         errs = validate(store)

@@ -78,6 +78,40 @@ class MergeTest(unittest.TestCase):
         self.assertEqual(len(self.store["events"]), 1)
         self.assertEqual(st["ev_new"], 0)
 
+    def test_two_tokens_same_pitch_fold(self):
+        mk = lambda d: {"key": "x", "d": d, "name": "DeMatteo Investor Idea: UPS Short", "host": "DeMatteo Research",
+                        "series": "DeMatteo Investor Idea", "fmt": "Call"}
+        self.add([mk("2026-07-27")], [idea(ev_key="x", d="2026-07-27", tk="UPS", yf="UPS", co="UPS", ext="B")])
+        st = self.add([mk("2026-05-31")], [idea(ev_key="x", d="2026-05-31", tk="UPS", yf="UPS", co="UPS", ext="A"),
+                                           idea(ev_key="x", d="2026-05-31", tk="UPS", yf="UPS", co="UPS", ext="B")])
+        self.assertEqual(len(self.store["ideas"]), 1)
+        self.assertEqual(st["folded"], 1)
+        i = self.store["ideas"][0]
+        self.assertEqual(i["d"], "2026-05-31")
+        self.assertIn("B", i["aka"])
+        self.assertEqual([e["d"] for e in self.store["events"]], ["2026-05-31"])
+        st = self.add([mk("2026-08-02")], [idea(ev_key="x", d="2026-08-02", tk="UPS", yf="UPS", co="UPS", ext="B")])
+        self.assertEqual((st["new"], len(self.store["ideas"])), (0, 1))
+
+    def test_catchall_copy_folds_into_named_event(self):
+        din = {"key": "din", "d": "2026-06-09", "name": "DeMatteo TMT Dinner", "host": "DeMatteo Research",
+               "series": "DeMatteo TMT Dinner", "fmt": "Dinner"}
+        one = {"key": "one", "d": "2026-06-10", "name": "DeMatteo Investor Idea: MRVL Long", "host": "DeMatteo Research",
+               "series": "DeMatteo Investor Idea", "fmt": "Call"}
+        self.add([one], [idea(ev_key="one", d="2026-06-10", tk="MRVL", yf="MRVL", co="Marvell", dir="Long", ext="T2", pitch="longer text from the table")])
+        st = self.add([din], [idea(ev_key="din", d="2026-06-09", tk="MRVL", yf="MRVL", co="Marvell", dir="Long", ext="T1")])
+        self.assertEqual(st["folded"], 1)
+        self.assertEqual(len(self.store["ideas"]), 1)
+        i = self.store["ideas"][0]
+        self.assertTrue(i["ev"].endswith("dematteo-tmt-dinner"))
+        self.assertIn("T2", i["aka"])
+        self.assertEqual(i["pitch"], "longer text from the table")
+        self.assertEqual(len(self.store["events"]), 1)
+        # A different host's pitch of the same name is a separate idea.
+        mch = dict(EV, key="m", d="2026-06-09")
+        self.add([mch], [idea(ev_key="m", d="2026-06-09", tk="MRVL", yf="MRVL", co="Marvell", dir="Long")])
+        self.assertEqual(len(self.store["ideas"]), 2)
+
     def test_same_ticker_both_directions_are_two_ideas(self):
         self.add([EV], [idea(tk="META", dir="Long"), idea(tk="META", dir="Short")])
         self.assertEqual(len(self.store["ideas"]), 2)

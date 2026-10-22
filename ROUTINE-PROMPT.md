@@ -55,7 +55,8 @@ Key rules:
 - DeMatteo: `ext` = the link TOKEN (pairs: TOKEN-1, TOKEN-2). Tokens repeat daily — the merge tool de-duplicates
   on `ext`, so include every token you see; it only adds what's new. Dinner ideas go under a
   "DeMatteo <Sector> Dinner" event; otherwise a "DeMatteo Investor Idea: <TICKER> <Long|Short>" event dated the
-  first time you see it. `pitch` = the sentences about it, prefixed "[YYYY-MM-DD] ".
+  first time you see it. `pitch` = the sentences about it, prefixed "[YYYY-MM-DD] ". Skip re-listed ideas whose
+  label carries an original idea date before 2026-01-01 (e.g. "Long Idea 10/21/2025") — they predate the tracker.
 - Joe's notes: event `notes` = the write-up's non-idea sections verbatim; anonymous participants `pr` = "Participant".
   A correction = resend that idea with `"correct": true` and the right direction.
 - `th` is YOUR one-liner (<= 160 chars): what the presenter thinks the market misses and why it works.
