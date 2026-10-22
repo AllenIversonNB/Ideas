@@ -453,7 +453,7 @@ tbody tr:last-child td { border-bottom: 0; }
       '<h3>Event</h3><div class="srcl" style="font-size:12.5px;color:#4a4740">' + esc(e.name) + " — " + esc(fd(e.d)) + " · " + esc([e.host, e.fmt, e.focus, e.loc].filter(Boolean).join(" · ")) +
         (e.presenters ? "<br>Presenters: " + esc(e.presenters) : "") + "</div>" +
       '<h3>Full pitch</h3><div class="pitch" id="pitchBody"><p style="color:#9a968f">Loading&hellip;</p></div>' +
-      (same.length ? '<h3 class="no-print">Other ideas at this event</h3><div class="rel no-print">' + same.map(relBtn).join("") + "</div>" : "") +
+      (same.length ? '<h3 class="no-print">Other ideas at this event</h3><div class="rel no-print">' + same.map(function (x) { return relBtn(x, false); }).join("") + "</div>" : "") +
       (hist.length ? '<h3 class="no-print">Other pitches on ' + esc(i.tk) + '</h3><div class="rel no-print">' + hist.map(function (x) { return relBtn(x, true); }).join("") + "</div>" : "") +
       '<h3>Source</h3><div class="srcl">' + esc(i.src || "").split(" || ").join("<br>") + "</div>" +
       '<div class="srcl print-only" style="margin-top:14px">Generated from Pitch Tracker ' + esc(todayISO()) + ". Prices: " + (PX.asof ? "as of " + esc(fd(PX.asof)) : "n/a") +
