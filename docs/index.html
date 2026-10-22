@@ -220,6 +220,7 @@ tbody tr:last-child td { border-bottom: 0; }
     EVBY = {}; DATA.events.forEach(function (e) { EVBY[e.id] = e; });
     ROWS = DATA.ideas.map(function (i) {
       var p = PX.ideas[i.id] || {}, m = (i.yf && PX.meta[i.yf]) || {}, ev = EVBY[i.ev] || {};
+      if (!i.co) i.co = m.name || "";
       var sec = !i.yf ? "Private / unlisted" : (m.sector || "Unclassified");
       var r = { i: i, p: p, m: m, ev: ev, sec: sec, mc: p.mcap0 || p.mcap || null };
       r.bucket = capBucket(r.mc);

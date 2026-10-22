@@ -42,7 +42,7 @@ events: `key` `d` (YYYY-MM-DD, day presented) `name` `host` `series` (grouping, 
 `focus` `loc` `presenters` `summary` `notes` (event-level write-up, verbatim) `src`
 
 ideas: `ev_key` `d` `tk` (as quoted; Bloomberg style for non-US, e.g. "000150 KS") `yf` (Yahoo symbol; "" if private)
-`co` `dir` (Long|Short) `tag` ("dirty double", "pair: long X / short Y", "lightning round") `pr` (presenter;
+`co` (optional; page falls back to the Yahoo name) `dir` (Long|Short) `tag` ("dirty double", "pair: long X / short Y", "lightning round") `pr` (presenter;
 "Undisclosed" / "Participant") `fm` (firm) `th` (one-liner ≤160 chars) `pt` `px_ref` (number) `mcap_ref` `cat`
 `pitch` (full text, paragraphs separated by blank lines) `ext` (stable external id, e.g. DeMatteo link token)
 `src` ("Sender <addr> | Subject | received YYYY-MM-DD") `correct` (true only for corrections)

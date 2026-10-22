@@ -116,7 +116,7 @@ def validate(store):
     seen = set()
     for i in store["ideas"]:
         tag = i.get("id") or f'{i.get("tk")}@{i.get("ev")}'
-        for f in ("id", "ev", "d", "tk", "co", "dir", "th"):
+        for f in ("id", "ev", "d", "tk", "dir", "th"):
             if not i.get(f):
                 errs.append(f"idea {tag}: missing {f}")
         if i.get("dir") not in ("Long", "Short"):
