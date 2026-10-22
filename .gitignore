@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+*.tmp
+# Scratch input handed to tools/merge_ideas.py --add during a run
+new_ideas.json

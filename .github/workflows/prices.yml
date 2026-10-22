@@ -1,0 +1,56 @@
+name: Update prices
+
+# Prices come from Yahoo Finance, which Claude's sandbox cannot reach, so this Action owns
+# docs/data/prices.json. It never touches the ideas store.
+#
+# Runs every weekday after the US close, whenever the ideas store changes on main (so a new
+# idea gets its pitch price the same day), and on demand from the Actions tab.
+on:
+  schedule:
+    - cron: "35 21 * * 1-5"   # 21:35 UTC = 5:35 PM EDT / 4:35 PM EST
+  push:
+    branches: [main]
+    paths: ["data/ideas.json"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prices
+  cancel-in-progress: false
+
+jobs:
+  prices:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # yfinance is deliberately unpinned: Yahoo changes its endpoints and old versions break.
+      - name: Install
+        run: pip install --upgrade yfinance pandas
+
+      - name: Tests
+        run: python3 tools/test_tools.py
+
+      - name: Fetch prices and compute performance
+        run: python3 tools/update_prices.py
+
+      - name: Commit
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data/prices.json
+          if git diff --cached --quiet; then echo "No change."; exit 0; fi
+          git commit -m "prices: $(date -u +%Y-%m-%d)"
+          # A daily routine may have pushed ideas meanwhile; it never touches prices.json, so a rebase is clean.
+          for n in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((n * 10))
+          done
+          echo "push failed after 3 attempts"; exit 1
