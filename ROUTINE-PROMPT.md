@@ -21,7 +21,14 @@ Use the Microsoft Outlook connector's email search tool:
 - afterDateTime = 36 hours before now (ISO local timestamp). The overlap is harmless: the merge is idempotent.
 - folderName = Inbox, order = newest, limit = 25, offset = 0
 - Do NOT add `query` or `recipient` (refused together with mailboxOwnerEmail + dates).
-- PAGINATE until the window is covered (follow nextOffset, or nextCursor as `cursor`).
+- PAGINATE until the window is covered (follow nextOffset, or nextCursor as `cursor`). THIS IS MANDATORY.
+  A 36-hour window holds ~400-500 emails, i.e. ~20 pages. Listing pages is cheap (subjects and senders only);
+  reading bodies is where the cost is. Stopping after page 1 and relying on sender searches was the failure
+  of the first live run (2026-10-22): it would silently miss a pitch from any sender not already known.
+  Write every listed subject/sender to a scratch file and screen the WHOLE list for Step 2.
+- Additionally run sender searches (mailboxOwnerEmail + sender + afterDateTime) for mchny.com, dmllc.com,
+  mystllc.com and newbrookcapital.com, so the known idea sources are never missed even if paging misbehaves.
+- In the report, state "listed N of M emails in the window" — N must equal M.
 
 If the connector errors or returns nothing, STOP and report. Never write over the store on a failed read.
 
@@ -77,7 +84,7 @@ Key rules:
 
 === STEP 5 — REPORT (under 150 words) ===
 
-- Date, emails scanned, candidates fully read
+- Date, "listed N of M emails in the window" (must be all of them), candidates fully read
 - New events (name + date) and new ideas (TICKER Long/Short), updates, corrections
 - Anything you could not parse, and any `possible duplicate` pairs from --report
 - Branch(es) pushed and the checksum result
