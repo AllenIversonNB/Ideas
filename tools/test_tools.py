@@ -232,5 +232,51 @@ class FrameTest(unittest.TestCase):
         self.assertEqual(P.fetch_series(FakeYF2, ["OTHER"], "2026-01-01"), {})
 
 
+class CutoffTest(unittest.TestCase):
+    def test_last_complete_day(self):
+        import datetime as dt
+        et = P.ET
+        self.assertEqual(P.last_complete_day(dt.datetime(2026, 10, 22, 13, 55, tzinfo=et)), "2026-10-21")
+        self.assertEqual(P.last_complete_day(dt.datetime(2026, 10, 22, 20, 4, tzinfo=et)), "2026-10-22")
+
+    def test_partial_bars_dropped_and_groups_split(self):
+        import datetime as dt
+        import pandas as pd
+        calls = []
+
+        class FakeYF:
+            @staticmethod
+            def download(chunk, **kw):
+                calls.append(list(chunk))
+                idx = pd.to_datetime(["2026-10-21", "2026-10-22", "2026-10-23"])
+                cols = pd.MultiIndex.from_product([chunk, ["Close", "Adj Close"]])
+                return pd.DataFrame([[1.0] * len(cols), [2.0] * len(cols), [3.0] * len(cols)], index=idx, columns=cols)
+
+        mid = dt.datetime(2026, 10, 22, 13, 0, tzinfo=P.ET)
+        got = P.fetch_series(FakeYF, ["AAPL", "6098.T", "EURUSD=X"], "2026-10-01", mid)
+        self.assertEqual(calls, [["AAPL"], ["6098.T"], ["EURUSD=X"]])
+        self.assertEqual(got["AAPL"].d, ["2026-10-21"])          # 10/22 still trading, 10/23 is the future
+        night = dt.datetime(2026, 10, 22, 20, 0, tzinfo=P.ET)
+        got = P.fetch_series(FakeYF, ["AAPL", "6098.T"], "2026-10-01", night)
+        self.assertEqual(got["6098.T"].d[-1], "2026-10-22")      # Tokyo's 10/23 session is in progress
+
+    def test_stragglers_refetched(self):
+        s_spy = P.Series([("2026-10-21", 1, 1), ("2026-10-22", 1, 1)])
+        s_old = P.Series([("2026-10-21", 1, 1)])
+        series = {"SPY": s_spy, "AAA": s_old, "BBB": s_old}
+
+        class FakeYF:
+            pass
+
+        orig = P.fetch_series
+        P.fetch_series = lambda yf, syms, start, now_et=None: {"AAA": s_spy}
+        try:
+            left = P.refetch_stragglers(FakeYF, series, "2026-10-01")
+        finally:
+            P.fetch_series = orig
+        self.assertEqual(series["AAA"].d[-1], "2026-10-22")
+        self.assertEqual(left, ["BBB"])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=1)

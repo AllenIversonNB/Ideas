@@ -7,7 +7,10 @@ name: Update prices
 # idea gets its pitch price the same day), and on demand from the Actions tab.
 on:
   schedule:
-    - cron: "35 21 * * 1-5"   # 21:35 UTC = 5:35 PM EDT / 4:35 PM EST
+    - cron: "35 21 * * 1-5"   # 21:35 UTC = 5:35 PM EDT / 4:35 PM EST (GitHub may start it hours late)
+    # Backstop: 11:05 UTC = 7:05 AM EDT / 6:05 AM EST, Tue-Sat. Re-fetches the prior close in case the
+    # evening run was late, skipped, or got stale data from Yahoo (it did on 2026-10-22).
+    - cron: "5 11 * * 2-6"
   push:
     branches: [main]
     paths: ["data/ideas.json"]

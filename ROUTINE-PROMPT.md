@@ -18,11 +18,12 @@ Timezone is America/New_York (ET). Resolve today's date with `TZ=America/New_Yor
 
 Use the Microsoft Outlook connector's email search tool:
 - mailboxOwnerEmail = AI@newbrookcapital.com   <-- REQUIRED
-- afterDateTime = 36 hours before now (ISO local timestamp). The overlap is harmless: the merge is idempotent.
+- afterDateTime = 27 hours before now (ISO local timestamp): one day plus a 3-hour buffer in case a run starts
+  late. The overlap is harmless: the merge is idempotent.
 - folderName = Inbox, order = newest, limit = 25, offset = 0
 - Do NOT add `query` or `recipient` (refused together with mailboxOwnerEmail + dates).
 - PAGINATE until the window is covered (follow nextOffset, or nextCursor as `cursor`). THIS IS MANDATORY.
-  A 36-hour window holds ~400-500 emails, i.e. ~20 pages. Listing pages is cheap (subjects and senders only);
+  A 27-hour window holds ~300-400 emails, i.e. ~12-16 pages. Listing pages is cheap (subjects and senders only);
   reading bodies is where the cost is. Stopping after page 1 and relying on sender searches was the failure
   of the first live run (2026-10-22): it would silently miss a pitch from any sender not already known.
   Write every listed subject/sender to a scratch file and screen the WHOLE list for Step 2.

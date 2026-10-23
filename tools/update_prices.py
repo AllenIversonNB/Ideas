@@ -19,11 +19,13 @@ import json
 import os
 import sys
 import time
+from zoneinfo import ZoneInfo
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STORE = os.path.join(ROOT, "data", "ideas.json")
 OUT = os.path.join(ROOT, "docs", "data", "prices.json")
 BENCH = "SPY"
+ET = ZoneInfo("America/New_York")
 META_MAX_AGE_DAYS = 7
 
 
@@ -134,27 +136,64 @@ def build(ideas, series, meta, fx, bench):
 
 # ---------------------------------------------------------------- fetching (Action only)
 
-def fetch_series(yf, symbols, start):
+def is_us(sym):
+    """US listings have no exchange suffix (class shares use '-', e.g. BRK-B); FX pairs end in '=X'."""
+    return "." not in sym and not sym.endswith("=X")
+
+
+def last_complete_day(now_et):
+    """Latest date whose bar may be stored. Before 16:30 ET today's US session is still trading and Yahoo's
+    'today' bar is an intraday price, not a close; a bar dated after today is an Asian session in progress."""
+    today = now_et.date()
+    if now_et.time() < dt.time(16, 30):
+        return (today - dt.timedelta(days=1)).isoformat()
+    return today.isoformat()
+
+
+def fetch_series(yf, symbols, start, now_et=None):
+    """Daily closes per symbol. US, non-US and FX symbols are downloaded in separate batches: mixing exchanges
+    in one download misaligned dates (2026-10-22: most US names came back a day stale). Bars after the last
+    completed session are dropped so a mid-session price is never stored as a close."""
     import pandas as pd  # noqa: F401  (yfinance dependency)
+    now_et = now_et or dt.datetime.now(ET)
+    cutoff = last_complete_day(now_et)
+    groups = [[s for s in symbols if is_us(s)], [s for s in symbols if not is_us(s) and not s.endswith("=X")],
+              [s for s in symbols if s.endswith("=X")]]
     got = {}
-    for chunk in [symbols[k:k + 80] for k in range(0, len(symbols), 80)]:
-        df = yf.download(chunk, start=start, auto_adjust=False, actions=False, group_by="ticker",
-                         threads=True, progress=False)
-        for sym in chunk:
-            try:
-                # group_by="ticker" gives (symbol, field) columns -- recent yfinance does so even for one symbol.
-                multi = getattr(df.columns, "nlevels", 1) > 1
-                if multi and sym not in df.columns.get_level_values(0):
-                    raise KeyError(sym)
-                sub = df[sym] if multi else df
-                rows = [(ix.date().isoformat(), float(c), float(a))
-                        for ix, c, a in zip(sub.index, sub["Close"], sub["Adj Close"])
-                        if c == c and a == a]
-            except (KeyError, TypeError):
-                rows = []
-            if rows:
-                got[sym] = Series(rows)
+    for group in groups:
+        for chunk in [group[k:k + 80] for k in range(0, len(group), 80)]:
+            df = yf.download(chunk, start=start, auto_adjust=False, actions=False, group_by="ticker",
+                             threads=True, progress=False)
+            for sym in chunk:
+                try:
+                    # group_by="ticker" gives (symbol, field) columns -- recent yfinance does so even for one symbol.
+                    multi = getattr(df.columns, "nlevels", 1) > 1
+                    if multi and sym not in df.columns.get_level_values(0):
+                        raise KeyError(sym)
+                    sub = df[sym] if multi else df
+                    rows = [(ix.date().isoformat(), float(c), float(a))
+                            for ix, c, a in zip(sub.index, sub["Close"], sub["Adj Close"])
+                            if c == c and a == a and ix.date().isoformat() <= cutoff]
+                except (KeyError, TypeError, AttributeError):
+                    rows = []
+                if rows:
+                    got[sym] = Series(rows)
     return got
+
+
+def refetch_stragglers(yf, series, start, now_et=None):
+    """US names whose last bar is behind SPY's are re-downloaded once; a newer answer replaces the old one."""
+    bench = series.get(BENCH)
+    if not bench:
+        return []
+    behind = [s for s, ser in series.items() if s != BENCH and is_us(s) and ser.d[-1] < bench.d[-1]]
+    if not behind:
+        return []
+    again = fetch_series(yf, behind, start, now_et)
+    fixed = [s for s in behind if s in again and again[s].d[-1] > series[s].d[-1]]
+    for s in fixed:
+        series[s] = again[s]
+    return [s for s in behind if s not in fixed]
 
 
 def fetch_meta(yf, sym):
@@ -199,6 +238,12 @@ def main():
     bench = series.get(BENCH)
     if not bench:
         sys.exit(f"REFUSING TO WRITE: no {BENCH} data (Yahoo unreachable?)")
+    if prev.get("asof") and bench.d[-1] < prev["asof"]:
+        sys.exit(f"REFUSING TO WRITE: Yahoo's latest {BENCH} bar is {bench.d[-1]}, older than the published "
+                 f"{prev['asof']}. Leaving the page as it is; the next run will retry.")
+    stale = refetch_stragglers(yf, series, start)
+    if stale:
+        print(f"{len(stale)} US symbols still behind {BENCH} ({bench.d[-1]}) after a retry: {', '.join(stale[:30])}")
     prev_ok = len(prev.get("ideas", {}))
     missing = [s for s in syms if s not in series]
 
