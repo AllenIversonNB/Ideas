@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24T21:47:01-04:00",
+ "updated": "2026-10-25T21:47:18-04:00",
  "events": [
   {
    "d": "2026-10-23",
@@ -723,6 +723,19 @@
    "id": "2026-08-04-dematteo-resea-dematteo-investor-idea-axon-long",
    "seen": "2026-10-22T13:27:30-04:00",
    "upd": "2026-10-22T13:27:30-04:00"
+  },
+  {
+   "d": "2026-08-04",
+   "name": "DeMatteo Investor Idea: APPN Long",
+   "host": "DeMatteo Research",
+   "series": "DeMatteo Investor Idea",
+   "fmt": "Call",
+   "presenters": "Investor (undisclosed)",
+   "summary": "Single-investor long idea on APPN published to the DeMatteo network; seen in the DeMatteo Idea Performance Update.",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | Idea Performance Update as of 10/23/2026 | received 2026-10-25",
+   "id": "2026-08-04-dematteo-resea-dematteo-investor-idea-appn-long",
+   "seen": "2026-10-25T21:47:18-04:00",
+   "upd": "2026-10-25T21:47:18-04:00"
   },
   {
    "d": "2026-07-31",
@@ -2785,6 +2798,19 @@
    "upd": "2026-10-22T13:38:30-04:00"
   },
   {
+   "d": "2026-03-24",
+   "name": "DeMatteo Investor Idea: NTAP Short",
+   "host": "DeMatteo Research",
+   "series": "DeMatteo Investor Idea",
+   "fmt": "Call",
+   "presenters": "Investor (undisclosed)",
+   "summary": "Single-investor short idea on NTAP published to the DeMatteo network; seen in the DeMatteo Idea Performance Update.",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | Idea Performance Update as of 10/23/2026 | received 2026-10-25",
+   "id": "2026-03-24-dematteo-resea-dematteo-investor-idea-ntap-short",
+   "seen": "2026-10-25T21:47:18-04:00",
+   "upd": "2026-10-25T21:47:18-04:00"
+  },
+  {
    "d": "2026-03-19",
    "name": "DeMatteo Defense Idea Forum",
    "host": "DeMatteo Research",
@@ -3376,6 +3402,19 @@
    "id": "2026-01-21-dematteo-resea-dematteo-consumer-dinner",
    "seen": "2026-10-22T13:38:30-04:00",
    "upd": "2026-10-22T13:38:30-04:00"
+  },
+  {
+   "d": "2026-01-14",
+   "name": "DeMatteo Investor Idea: SE Long",
+   "host": "DeMatteo Research",
+   "series": "DeMatteo Investor Idea",
+   "fmt": "Call",
+   "presenters": "Investor (undisclosed)",
+   "summary": "Single-investor long idea on SE published to the DeMatteo network; seen in the DeMatteo Idea Performance Update.",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | Idea Performance Update as of 10/23/2026 | received 2026-10-25",
+   "id": "2026-01-14-dematteo-resea-dematteo-investor-idea-se-long",
+   "seen": "2026-10-25T21:47:18-04:00",
+   "upd": "2026-10-25T21:47:18-04:00"
   },
   {
    "d": "2026-01-13",
@@ -11413,6 +11452,22 @@
    "upd": "2026-10-22T13:27:30-04:00"
   },
   {
+   "ev": "2026-08-04-dematteo-resea-dematteo-investor-idea-appn-long",
+   "d": "2026-08-04",
+   "tk": "APPN",
+   "yf": "APPN",
+   "dir": "Long",
+   "pr": "Undisclosed",
+   "th": "Long idea presented in the DeMatteo network on 8/4/2026 at $28.45; the performance update carries no thesis text.",
+   "px_ref": 28.45,
+   "pitch": "[2026-10-25] Listed in DeMatteo's Idea Performance Update as of 10/23/2026: Long, presented 8/4/2026 at $28.45, $52.35 on 10/23 (+27.16% over the last week, +45.38% over the last month).",
+   "ext": "a08Uh00001BCJZj",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | Idea Performance Update as of 10/23/2026 | received 2026-10-25",
+   "id": "2026-08-04-dematteo-resea-dematteo-investor-idea-appn-long--appn-l",
+   "seen": "2026-10-25T21:47:18-04:00",
+   "upd": "2026-10-25T21:47:18-04:00"
+  },
+  {
    "ev": "2026-07-31-myst-miko-tam-myst-consumer-idea-forum",
    "d": "2026-07-31",
    "tk": "YSWY",
@@ -18394,6 +18449,22 @@
    "upd": "2026-10-22T13:40:50-04:00"
   },
   {
+   "ev": "2026-03-24-dematteo-resea-dematteo-investor-idea-ntap-short",
+   "d": "2026-03-24",
+   "tk": "NTAP",
+   "yf": "NTAP",
+   "dir": "Short",
+   "pr": "Undisclosed",
+   "th": "Short idea presented in the DeMatteo network on 3/24/2026 at $104.31; the performance update carries no thesis text.",
+   "px_ref": 104.31,
+   "pitch": "[2026-10-25] Listed in DeMatteo's Idea Performance Update as of 10/23/2026: Short, presented 3/24/2026 at $104.31, $215.40 on 10/23.",
+   "ext": "a08Uh00000wuPFJ",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | Idea Performance Update as of 10/23/2026 | received 2026-10-25",
+   "id": "2026-03-24-dematteo-resea-dematteo-investor-idea-ntap-short--ntap-s",
+   "seen": "2026-10-25T21:47:18-04:00",
+   "upd": "2026-10-25T21:47:18-04:00"
+  },
+  {
    "ev": "2026-03-19-dematteo-resea-dematteo-defense-idea-forum",
    "d": "2026-03-19",
    "tk": "THEON NA",
@@ -20868,6 +20939,22 @@
    "id": "2026-01-21-dematteo-resea-dematteo-consumer-dinner--mo-s",
    "seen": "2026-10-22T13:38:30-04:00",
    "upd": "2026-10-22T13:38:30-04:00"
+  },
+  {
+   "ev": "2026-01-14-dematteo-resea-dematteo-investor-idea-se-long",
+   "d": "2026-01-14",
+   "tk": "SE",
+   "yf": "SE",
+   "dir": "Long",
+   "pr": "Undisclosed",
+   "th": "Long idea presented in the DeMatteo network on 1/14/2026 at $125.25; the performance update carries no thesis text.",
+   "px_ref": 125.25,
+   "pitch": "[2026-10-25] Listed in DeMatteo's Idea Performance Update as of 10/23/2026: Long, presented 1/14/2026 at $125.25, $74.67 on 10/23 (-20.33% over the last week).",
+   "ext": "a08Uh00000qgyhp",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | Idea Performance Update as of 10/23/2026 | received 2026-10-25",
+   "id": "2026-01-14-dematteo-resea-dematteo-investor-idea-se-long--se-l",
+   "seen": "2026-10-25T21:47:18-04:00",
+   "upd": "2026-10-25T21:47:18-04:00"
   },
   {
    "ev": "2026-01-13-monness-crespi-mch-tmt-idea-dinner",
