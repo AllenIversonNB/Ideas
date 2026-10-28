@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-26T21:47:27-04:00",
+ "updated": "2026-10-27T21:48:05-04:00",
  "events": [
   {
    "d": "2026-10-23",
@@ -15,6 +15,19 @@
    "id": "2026-10-23-myst-miko-tam-myst-industrials-idea-forum",
    "seen": "2026-10-24T21:47:01-04:00",
    "upd": "2026-10-24T21:47:01-04:00"
+  },
+  {
+   "d": "2026-10-21",
+   "name": "DeMatteo Software Dinner",
+   "host": "DeMatteo Research",
+   "series": "DeMatteo Software Dinner",
+   "fmt": "Dinner",
+   "focus": "TMT",
+   "summary": "Software dinner hosted by DeMatteo on 10/21/2026; investors shared views on CXM Long, DT Long, PCOR Long, QLYS Short and SNOW Long.",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | CALM/VITL Call, Software Ideas, CLS, ABNB, MAT, BA, INIO, PYPL, Generalist Ideas, FLEX, GNRC, CMG, GOOGL, NOW - 10/27/2026 | received 2026-10-27",
+   "id": "2026-10-21-dematteo-resea-dematteo-software-dinner",
+   "seen": "2026-10-27T21:48:05-04:00",
+   "upd": "2026-10-27T21:48:05-04:00"
   },
   {
    "d": "2026-10-21",
@@ -3723,6 +3736,86 @@
    "id": "2026-10-23-myst-miko-tam-myst-industrials-idea-forum--cp-l",
    "seen": "2026-10-24T21:47:01-04:00",
    "upd": "2026-10-24T21:47:01-04:00"
+  },
+  {
+   "ev": "2026-10-21-dematteo-resea-dematteo-software-dinner",
+   "d": "2026-10-21",
+   "tk": "SNOW",
+   "yf": "SNOW",
+   "co": "Snowflake",
+   "dir": "Long",
+   "pr": "Undisclosed",
+   "th": "Pitched at DeMatteo Software Dinner (write-up on DeMatteo portal)",
+   "pitch": "[2026-10-27] On October 21st we hosted a Software dinner where investors shared their views on CXM Long, DT Long, PCOR Long, QLYS Short and SNOW Long. (SNOW Long)",
+   "ext": "a08Uh00001Jsd2pIAB",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | CALM/VITL Call, Software Ideas, CLS, ABNB, MAT, BA, INIO, PYPL, Generalist Ideas, FLEX, GNRC, CMG, GOOGL, NOW - 10/27/2026 | received 2026-10-27",
+   "id": "2026-10-21-dematteo-resea-dematteo-software-dinner--snow-l",
+   "seen": "2026-10-27T21:48:05-04:00",
+   "upd": "2026-10-27T21:48:05-04:00"
+  },
+  {
+   "ev": "2026-10-21-dematteo-resea-dematteo-software-dinner",
+   "d": "2026-10-21",
+   "tk": "QLYS",
+   "yf": "QLYS",
+   "co": "Qualys",
+   "dir": "Short",
+   "pr": "Undisclosed",
+   "th": "Pitched at DeMatteo Software Dinner (write-up on DeMatteo portal)",
+   "pitch": "[2026-10-27] On October 21st we hosted a Software dinner where investors shared their views on CXM Long, DT Long, PCOR Long, QLYS Short and SNOW Long. (QLYS Short)",
+   "ext": "a08Uh00001Jsd2mIAB",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | CALM/VITL Call, Software Ideas, CLS, ABNB, MAT, BA, INIO, PYPL, Generalist Ideas, FLEX, GNRC, CMG, GOOGL, NOW - 10/27/2026 | received 2026-10-27",
+   "id": "2026-10-21-dematteo-resea-dematteo-software-dinner--qlys-s",
+   "seen": "2026-10-27T21:48:05-04:00",
+   "upd": "2026-10-27T21:48:05-04:00"
+  },
+  {
+   "ev": "2026-10-21-dematteo-resea-dematteo-software-dinner",
+   "d": "2026-10-21",
+   "tk": "PCOR",
+   "yf": "PCOR",
+   "co": "Procore Technologies",
+   "dir": "Long",
+   "pr": "Undisclosed",
+   "th": "Pitched at DeMatteo Software Dinner (write-up on DeMatteo portal)",
+   "pitch": "[2026-10-27] On October 21st we hosted a Software dinner where investors shared their views on CXM Long, DT Long, PCOR Long, QLYS Short and SNOW Long. (PCOR Long)",
+   "ext": "a08Uh00001Jsd2oIAB",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | CALM/VITL Call, Software Ideas, CLS, ABNB, MAT, BA, INIO, PYPL, Generalist Ideas, FLEX, GNRC, CMG, GOOGL, NOW - 10/27/2026 | received 2026-10-27",
+   "id": "2026-10-21-dematteo-resea-dematteo-software-dinner--pcor-l",
+   "seen": "2026-10-27T21:48:05-04:00",
+   "upd": "2026-10-27T21:48:05-04:00"
+  },
+  {
+   "ev": "2026-10-21-dematteo-resea-dematteo-software-dinner",
+   "d": "2026-10-21",
+   "tk": "DT",
+   "yf": "DT",
+   "co": "Dynatrace",
+   "dir": "Long",
+   "pr": "Undisclosed",
+   "th": "Pitched at DeMatteo Software Dinner (write-up on DeMatteo portal)",
+   "pitch": "[2026-10-27] On October 21st we hosted a Software dinner where investors shared their views on CXM Long, DT Long, PCOR Long, QLYS Short and SNOW Long. (DT Long)",
+   "ext": "a08Uh00001Jsd2nIAB",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | CALM/VITL Call, Software Ideas, CLS, ABNB, MAT, BA, INIO, PYPL, Generalist Ideas, FLEX, GNRC, CMG, GOOGL, NOW - 10/27/2026 | received 2026-10-27",
+   "id": "2026-10-21-dematteo-resea-dematteo-software-dinner--dt-l",
+   "seen": "2026-10-27T21:48:05-04:00",
+   "upd": "2026-10-27T21:48:05-04:00"
+  },
+  {
+   "ev": "2026-10-21-dematteo-resea-dematteo-software-dinner",
+   "d": "2026-10-21",
+   "tk": "CXM",
+   "yf": "CXM",
+   "co": "Sprinklr",
+   "dir": "Long",
+   "pr": "Undisclosed",
+   "th": "Pitched at DeMatteo Software Dinner (write-up on DeMatteo portal)",
+   "pitch": "[2026-10-27] On October 21st we hosted a Software dinner where investors shared their views on CXM Long, DT Long, PCOR Long, QLYS Short and SNOW Long. (CXM Long)",
+   "ext": "a08Uh00001Jsd2lIAB",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | CALM/VITL Call, Software Ideas, CLS, ABNB, MAT, BA, INIO, PYPL, Generalist Ideas, FLEX, GNRC, CMG, GOOGL, NOW - 10/27/2026 | received 2026-10-27",
+   "id": "2026-10-21-dematteo-resea-dematteo-software-dinner--cxm-l",
+   "seen": "2026-10-27T21:48:05-04:00",
+   "upd": "2026-10-27T21:48:05-04:00"
   },
   {
    "ev": "2026-10-21-dematteo-resea-dematteo-generalist-dinner",
