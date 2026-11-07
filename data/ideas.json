@@ -1,6 +1,19 @@
 {
- "updated": "2026-11-04T21:50:17-05:00",
+ "updated": "2026-11-06T21:48:05-05:00",
  "events": [
+  {
+   "d": "2026-11-06",
+   "name": "DeMatteo Investor Idea: HUM Long",
+   "host": "DeMatteo Research",
+   "series": "DeMatteo Investor Idea",
+   "fmt": "Call",
+   "presenters": "Investor (undisclosed)",
+   "summary": "Single-investor long idea on HUM published to the DeMatteo network and referenced in the DeMatteo Morning Note.",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | BURL/ROST/TJX Call, FWONK, U, FIVN, EQIX, NYT, USFD, HUM, CRM Call, GLL Ideas, UNIT, GSHD, LIF, QLYS, TTD, TTWO - 11/06/2026 | received 2026-11-06",
+   "id": "2026-11-06-dematteo-resea-dematteo-investor-idea-hum-long",
+   "seen": "2026-11-06T21:48:05-05:00",
+   "upd": "2026-11-06T21:48:05-05:00"
+  },
   {
    "d": "2026-10-29",
    "name": "Morgan Stanley Cross-Asset CIO/PM Dinner",
@@ -3558,6 +3571,22 @@
   }
  ],
  "ideas": [
+  {
+   "ev": "2026-11-06-dematteo-resea-dematteo-investor-idea-hum-long",
+   "d": "2026-11-06",
+   "tk": "HUM",
+   "yf": "HUM",
+   "co": "Humana",
+   "dir": "Long",
+   "pr": "Undisclosed",
+   "th": "Normalized earnings are improving as Medicare Advantage benefits from a better regulatory trajectory.",
+   "pitch": "[2026-11-06] HUM is expected to report earnings before the open on Friday, 11/06. We recently had HUM Long discussed on the basis of improving normalized earnings for the company as it benefits from a better regulatory trajectory for Medicare Advantage.",
+   "ext": "a08Uh00001HWBfdIAH",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | BURL/ROST/TJX Call, FWONK, U, FIVN, EQIX, NYT, USFD, HUM, CRM Call, GLL Ideas, UNIT, GSHD, LIF, QLYS, TTD, TTWO - 11/06/2026 | received 2026-11-06",
+   "id": "2026-11-06-dematteo-resea-dematteo-investor-idea-hum-long--hum-l",
+   "seen": "2026-11-06T21:48:05-05:00",
+   "upd": "2026-11-06T21:48:05-05:00"
+  },
   {
    "ev": "2026-10-29-morgan-stanley-morgan-stanley-cross-asset-cio-pm-dinner",
    "d": "2026-10-29",
