@@ -1,6 +1,20 @@
 {
- "updated": "2026-11-07T21:46:09-05:00",
+ "updated": "2026-11-13T21:49:39-05:00",
  "events": [
+  {
+   "d": "2026-11-10",
+   "name": "DeMatteo Investor Idea: RIOT Long",
+   "host": "DeMatteo Research",
+   "series": "DeMatteo Investor Idea",
+   "fmt": "Call",
+   "focus": "TMT / Bitcoin miners & AI data centers",
+   "presenters": "Undisclosed investor",
+   "summary": "On November 10th DeMatteo interviewed an investor on a bullish view of Riot Platforms (RIOT); published in the 11/13/2026 Morning Note.",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | RIOT, NU, INIO, NBIS, YETI, TTWO, FIVN CEO Replay, ARMK - 11/13/2026 | received 2026-11-13",
+   "id": "2026-11-10-dematteo-resea-dematteo-investor-idea-riot-long",
+   "seen": "2026-11-13T21:49:39-05:00",
+   "upd": "2026-11-13T21:49:39-05:00"
+  },
   {
    "d": "2026-11-06",
    "name": "MYST Consumer Idea Forum",
@@ -3586,6 +3600,23 @@
   }
  ],
  "ideas": [
+  {
+   "ev": "2026-11-10-dematteo-resea-dematteo-investor-idea-riot-long",
+   "d": "2026-11-10",
+   "tk": "RIOT",
+   "yf": "RIOT",
+   "co": "Riot Platforms",
+   "dir": "Long",
+   "pr": "Undisclosed",
+   "th": "Anthropic deal plus two tier-one Texas sites drive incremental growth; substantial NOI by 2028 could double the stock or more",
+   "cat": "Scaling of Anthropic deal and Texas sites",
+   "pitch": "[2026-11-13] On November 10th we interviewed an investor on a bullish view of Riot Platforms (RIOT) seeing the company as well positioned following its landmark deal with Anthropic and two tier-one Texas sites that should provide incremental growth as it scales. Looking out to 2028 the company should be generating substantial NOI with the potential for the stock to double or more.",
+   "ext": "a08j70000010OTCAA2",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | RIOT, NU, INIO, NBIS, YETI, TTWO, FIVN CEO Replay, ARMK - 11/13/2026 | received 2026-11-13",
+   "id": "2026-11-10-dematteo-resea-dematteo-investor-idea-riot-long--riot-l",
+   "seen": "2026-11-13T21:49:39-05:00",
+   "upd": "2026-11-13T21:49:39-05:00"
+  },
   {
    "ev": "2026-11-06-myst-miko-tam-myst-consumer-idea-forum",
    "d": "2026-11-06",
