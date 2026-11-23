@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T21:47:01-05:00",
+ "updated": "2026-11-22T21:47:39-05:00",
  "events": [
   {
    "d": "2026-11-20",
@@ -2359,6 +2359,19 @@
    "id": "2026-05-08-dematteo-resea-dematteo-investor-idea-ffiv-long",
    "seen": "2026-10-22T13:40:50-04:00",
    "upd": "2026-10-22T13:40:50-04:00"
+  },
+  {
+   "d": "2026-05-06",
+   "name": "DeMatteo Investor Idea: OSCR Short",
+   "host": "DeMatteo Research",
+   "series": "DeMatteo Investor Idea",
+   "fmt": "Call",
+   "presenters": "Investor (undisclosed)",
+   "summary": "Single-investor short idea on OSCR published to the DeMatteo network; seen in the DeMatteo Idea Performance Update.",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | Idea Performance Update as of 11/20/2026 | received 2026-11-22",
+   "id": "2026-05-06-dematteo-resea-dematteo-investor-idea-oscr-short",
+   "seen": "2026-11-22T21:47:39-05:00",
+   "upd": "2026-11-22T21:47:39-05:00"
   },
   {
    "d": "2026-05-05",
@@ -18508,6 +18521,22 @@
    "aka": [
     "2026-07-24-dematteo-resea-dematteo-investor-idea-ffiv-long--ffiv-l"
    ]
+  },
+  {
+   "ev": "2026-05-06-dematteo-resea-dematteo-investor-idea-oscr-short",
+   "d": "2026-05-06",
+   "tk": "OSCR",
+   "yf": "OSCR",
+   "dir": "Short",
+   "pr": "Undisclosed",
+   "th": "Short idea presented in the DeMatteo network on 5/6/2026 at $19.84; the performance update carries no thesis text.",
+   "px_ref": 19.84,
+   "pitch": "[2026-11-22] Listed in DeMatteo's Idea Performance Update as of 11/20/2026: Short, presented 5/6/2026 at $19.84, $24.745 on 11/20 (+19.24% over the last week).",
+   "ext": "a08Uh00001205nj",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | Idea Performance Update as of 11/20/2026 | received 2026-11-22",
+   "id": "2026-05-06-dematteo-resea-dematteo-investor-idea-oscr-short--oscr-s",
+   "seen": "2026-11-22T21:47:39-05:00",
+   "upd": "2026-11-22T21:47:39-05:00"
   },
   {
    "ev": "2026-05-05-dematteo-resea-dematteo-investor-idea-trmb-long",
