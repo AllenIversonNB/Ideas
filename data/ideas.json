@@ -1,6 +1,20 @@
 {
- "updated": "2026-11-24T21:48:07-05:00",
+ "updated": "2026-11-25T21:47:39-05:00",
  "events": [
+  {
+   "d": "2026-11-25",
+   "name": "DeMatteo Investor Idea: DKS Long",
+   "host": "DeMatteo Research",
+   "series": "DeMatteo Investor Idea",
+   "fmt": "Call",
+   "focus": "Consumer",
+   "presenters": "Investor (undisclosed)",
+   "summary": "Single-investor long idea on DKS from the DeMatteo network, first seen in the Morning Note's Largest Daily Gain table; original presentation date not stated.",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | SBUX, META/AMZN, BURL, Short Ideas, COCO Replay - 11/25/2026 | received 2026-11-25",
+   "id": "2026-11-25-dematteo-resea-dematteo-investor-idea-dks-long",
+   "seen": "2026-11-25T21:47:39-05:00",
+   "upd": "2026-11-25T21:47:39-05:00"
+  },
   {
    "d": "2026-11-23",
    "name": "DeMatteo Investor Idea: SNDK Long",
@@ -3739,6 +3753,23 @@
   }
  ],
  "ideas": [
+  {
+   "ev": "2026-11-25-dematteo-resea-dematteo-investor-idea-dks-long",
+   "d": "2026-11-25",
+   "tk": "DKS",
+   "yf": "DKS",
+   "co": "Dick's Sporting Goods",
+   "dir": "Long",
+   "pr": "Undisclosed",
+   "th": "DeMatteo network long on Dick's Sporting Goods; listed among largest daily gainers (+14.6%) after a strong beat-and-raise, presented at $210.07.",
+   "px_ref": 210.07,
+   "pitch": "[2026-11-25] Largest Daily Gain - DKS Long: one day change +14.60%, current price $153.17, presented price $210.07.",
+   "ext": "a08Uh00000oeNXVIA2",
+   "src": "DeMatteo Research <dematteo-research@dmllc.com> | SBUX, META/AMZN, BURL, Short Ideas, COCO Replay - 11/25/2026 | received 2026-11-25",
+   "id": "2026-11-25-dematteo-resea-dematteo-investor-idea-dks-long--dks-l",
+   "seen": "2026-11-25T21:47:39-05:00",
+   "upd": "2026-11-25T21:47:39-05:00"
+  },
   {
    "ev": "2026-11-23-dematteo-resea-dematteo-investor-idea-sndk-long",
    "d": "2026-11-23",
